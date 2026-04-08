@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import { Star } from 'lucide-react'
 
-/**
- * Interactive star rating component.
- * @param {{ value: number, onChange: function, size?: number, className?: string }} props
- */
 export function StarRating({ value = 0, onChange, size = 24, className = '' }) {
     const [hovered, setHovered] = useState(0)
 

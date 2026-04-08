@@ -7,7 +7,7 @@ import { Badge } from '../../components/ui/Badge'
 import { useCourier } from '../../hooks/useCourier'
 import { useToast } from '../../hooks/useToast'
 import { formatCurrency } from '../../utils/formatters'
-import { ORDER_STATUS, ORDER_TYPES, STATUS_LABELS } from '../../constants'
+import { ORDER_STATUS, ORDER_TYPES } from '../../constants'
 
 const STEPS_ORDER_FOR_ME = [
     { status: ORDER_STATUS.HEADING_TO_STORE, label: 'توجهت للمحل' },

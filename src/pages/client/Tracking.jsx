@@ -21,7 +21,7 @@ export default function Tracking() {
     const { orderId } = useParams()
     const navigate = useNavigate()
     const { activeOrder, fetchMyOrders, subscribeToOrder, cancelOrder, submitRating } = useOrders()
-    const [rating, setRating] = useState(0)
+ const [rating, setRating] = useState(0)
     const [showRating, setShowRating] = useState(false)
 
     useEffect(() => {

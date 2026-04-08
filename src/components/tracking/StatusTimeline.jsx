@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
-import { getStatusSteps } from '../../utils/orderUtils'
 import { STATUS_LABELS } from '../../constants'
+import { getStatusSteps } from '../../utils/orderUtils'
 
 /**
  * Vertical timeline showing order status progression.
