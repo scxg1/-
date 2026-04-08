@@ -35,7 +35,7 @@ export default function Settings() {
 
     const handleLogout = async () => {
         await logout()
-        navigate('/auth')
+        navigate('/login')
     }
 
     const MenuItem = ({ icon: Icon, label, onClick, action }) => (

@@ -1,17 +1,15 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useAuth } from '../hooks/useAuth'
 import { useToast } from '../hooks/useToast'
 
 export default function LoginPage() {
-    const navigate = useNavigate()
-    const { login, loading } = useAuth()
     const { showToast } = useToast()
     const [lang, setLang] = useState('ar')
     const isAr = lang === 'ar'
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const t = {
         ar: {
@@ -21,12 +19,10 @@ export default function LoginPage() {
             password: 'كلمة المرور',
             submit: 'تسجيل الدخول',
             demo: 'بيانات تجريبية',
+            autoFill: 'تعبئة تلقائية',
             demoEmail: 'البريد: admin@example.com',
             demoPass: 'كلمة المرور: demo123',
             back: 'العودة للرئيسية',
-            welcome: 'مرحباً بك',
-            noAccount: 'ليس لديك حساب؟',
-            register: 'سجّل الآن',
         },
         en: {
             title: 'Sign In',
@@ -35,23 +31,34 @@ export default function LoginPage() {
             password: 'Password',
             submit: 'Sign In',
             demo: 'Demo Credentials',
+            autoFill: 'Auto-fill',
             demoEmail: 'Email: admin@example.com',
             demoPass: 'Password: demo123',
             back: 'Back to Home',
-            welcome: 'Welcome back',
-            noAccount: "Don't have an account?",
-            register: 'Sign up',
         },
     }[lang]
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
+
         if (email === 'admin@example.com' && password === 'demo123') {
-            showToast(isAr ? 'تم تسجيل الدخول بنجاح!' : 'Logged in successfully!', 'success')
-            navigate('/home')
-        } else {
-            showToast(isAr ? 'بيانات الدخول غير صحيحة' : 'Invalid credentials', 'error')
+            const demoUserData = {
+                id: 'demo-admin-' + Date.now(),
+                profile: {
+                    id: 'demo-admin-' + Date.now(),
+                    full_name: 'Admin',
+                    phone: '01000000001',
+                    role: 'client',
+                },
+            }
+            localStorage.setItem('demo_user', JSON.stringify(demoUserData))
+            window.location.href = '/home'
+            return
         }
+
+        showToast(isAr ? 'بيانات الدخول غير صحيحة' : 'Invalid credentials', 'error')
+        setLoading(false)
     }
 
     const fillDemo = () => {
@@ -71,7 +78,9 @@ export default function LoginPage() {
                         <span className="text-black font-bold text-2xl">T</span>
                     </div>
                     <h1 className="text-4xl font-extrabold mb-4 text-gold-gradient">طلباتنا</h1>
-                    <p className="text-gray-400 text-center max-w-sm">{isAr ? 'خدمة توصيل ذكية وسريعة تربط بين العملاء والمندوبين' : 'Smart, fast delivery connecting clients and couriers'}</p>
+                    <p className="text-gray-400 text-center max-w-sm">
+                        {isAr ? 'خدمة توصيل ذكية وسريعة تربط بين العملاء والمندوبين' : 'Smart, fast delivery connecting clients and couriers'}
+                    </p>
                 </div>
             </div>
 
@@ -82,7 +91,10 @@ export default function LoginPage() {
                             <h2 className="text-2xl font-extrabold">{t.title}</h2>
                             <p className="text-gray-400 text-sm mt-1">{t.subtitle}</p>
                         </div>
-                        <button onClick={() => setLang(isAr ? 'en' : 'ar')} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm hover:bg-white/10 transition-colors">
+                        <button
+                            onClick={() => setLang(isAr ? 'en' : 'ar')}
+                            className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm hover:bg-white/10 transition-colors"
+                        >
                             {isAr ? 'EN' : 'عربي'}
                         </button>
                     </div>
@@ -110,7 +122,11 @@ export default function LoginPage() {
                                 required
                             />
                         </div>
-                        <button type="submit" disabled={loading} className="w-full py-4 rounded-2xl bg-gold-gradient text-black font-bold hover:opacity-90 transition-opacity disabled:opacity-50">
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full py-4 rounded-2xl bg-gold-gradient text-black font-bold hover:opacity-90 transition-opacity disabled:opacity-50"
+                        >
                             {t.submit}
                         </button>
                     </form>
@@ -118,7 +134,12 @@ export default function LoginPage() {
                     <div className="mt-6 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                         <div className="flex items-center justify-between mb-2">
                             <p className="text-xs text-gold font-bold">{t.demo}</p>
-                            <button onClick={fillDemo} className="text-xs text-gold hover:underline">{isAr ? 'تعبئة تلقائية' : 'Auto-fill'}</button>
+                            <button
+                                onClick={fillDemo}
+                                className="text-xs text-gold hover:underline"
+                            >
+                                {t.autoFill}
+                            </button>
                         </div>
                         <p className="text-xs text-gray-500">{t.demoEmail}</p>
                         <p className="text-xs text-gray-500">{t.demoPass}</p>

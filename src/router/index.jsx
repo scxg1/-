@@ -6,7 +6,6 @@ import { USER_ROLES } from '../constants'
 
 import Landing from '../pages/Landing'
 import LoginPage from '../pages/LoginPage'
-import Auth from '../pages/Auth'
 import Home from '../pages/client/Home'
 import OrderFormA from '../pages/client/OrderFormA'
 import OrderFormB from '../pages/client/OrderFormB'
@@ -40,7 +39,7 @@ function LoadingScreen() {
 function PrivateRoute({ children }) {
     const { isAuthenticated, loading } = useAuthContext()
     if (loading) return <LoadingScreen />
-    if (!isAuthenticated) return <Navigate to="/auth" replace />
+    if (!isAuthenticated) return <Navigate to="/login" replace />
     return children
 }
 
@@ -68,7 +67,6 @@ export function RouterProvider() {
             <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
                 <Route path="/home" element={<PrivateRoute><RoleRoute role={USER_ROLES.CLIENT}><Home /></RoleRoute></PrivateRoute>} />
                 <Route path="/order/new/a" element={<PrivateRoute><RoleRoute role={USER_ROLES.CLIENT}><OrderFormA /></RoleRoute></PrivateRoute>} />
                 <Route path="/order/new/b" element={<PrivateRoute><RoleRoute role={USER_ROLES.CLIENT}><OrderFormB /></RoleRoute></PrivateRoute>} />
