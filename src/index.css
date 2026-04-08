@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* Brand */
+    --gold: #C9A84C;
+    --gold-dark: #A8872E;
+    --gold-light: #E8C96A;
+    --gold-muted: rgba(201, 168, 76, 0.12);
+
+    /* Backgrounds — layered dark */
+    --bg-base: #090909;
+    --bg-surface: #111111;
+    --bg-elevated: #1A1A1A;
+    --bg-overlay: #222222;
+
+    /* Borders */
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-default: rgba(255, 255, 255, 0.10);
+    --border-strong: rgba(255, 255, 255, 0.18);
+
+    /* Text */
+    --text-primary: #F2F2F2;
+    --text-secondary: #9A9A9A;
+    --text-muted: #555555;
+
+    /* Semantic */
+    --color-success: #22C55E;
+    --color-error: #EF4444;
+    --color-warning: #F59E0B;
+    --color-info: #3B82F6;
+
+    /* Spacing system */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+}
+
+body.light-mode {
+    --bg-base: #F8F8F8;
+    --bg-surface: #FFFFFF;
+    --bg-elevated: #F0F0F0;
+    --bg-overlay: #E8E8E8;
+    --border-subtle: rgba(0, 0, 0, 0.06);
+    --border-default: rgba(0, 0, 0, 0.10);
+    --border-strong: rgba(0, 0, 0, 0.18);
+    --text-primary: #111111;
+    --text-secondary: #555555;
+    --text-muted: #999999;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-default) transparent;
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Tajawal', sans-serif;
+}
+
+/* Glass card utility */
+.glass {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(16px);
+}
+
+/* Gold gradient text utility */
+.text-gold-gradient {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Gold gradient background utility */
+.bg-gold-gradient {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+}
+
+/* Floating particles animation */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 0.8;
+    }
+}
+
+@keyframes pulse-gold {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(201, 168, 76, 0);
+    }
+}
+
+@keyframes scooter-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes count-up {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-gold {
+    animation: pulse-gold 2s ease-in-out infinite;
+}
+
+.animate-scooter {
+    animation: scooter-float 3s ease-in-out infinite;
+}
